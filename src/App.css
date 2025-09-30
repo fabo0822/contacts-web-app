@@ -1,42 +1,59 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Estilos generales para la app. */
+.App {
+  font-family: Arial, sans-serif; /* Fuente simple */
+  margin: 0; /* Quitar márgenes por defecto */
+  padding: 0; /* Quitar padding por defecto */
+  width: 100vw; /* Ocupa todo el ancho de la ventana */
+  height: 100vh; /* Ocupa todo el alto de la ventana */
+
+ 
+}
+
+/* Estilos para el navbar. */
+.navbar {
+  display: flex; /* Hace que los elementos se alineen horizontalmente. */
+  align-items: center; /* Centra verticalmente los elementos. */
+  justify-content: space-between; /* Espacia logo, tabs y botón. */
+  background-color: #f8f8f8; /* Fondo claro como en la imagen. */
+  padding: 2vh;
+  border-bottom: 1px solid #ddd; /* Línea inferior sutil. */
 }
 
 .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  background-color: #ccc; /* Gris para simular el logo. */
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin-right: auto; /* Empuja las tabs hacia la derecha. */
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.tabs {
+  list-style: none; /* Quita bullets de la lista. */
+  display: flex; /* Horizontal. */
+  margin: 0;
+  padding: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.tabs li {
+  margin: 0 15px; /* Espacio entre pestañas. */
+  cursor: pointer; /* Mano al pasar el mouse. */
+  color: #333;
 }
 
-.card {
-  padding: 2em;
+.tabs li:hover {
+  color: #c1d72f; /* Verde al hover, como interactivo. */
 }
 
-.read-the-docs {
-  color: #888;
+.new-button {
+  background-color: #c1d72f; /* Verde como en la imagen. */
+  color: black;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
 }
+
+.new-button:hover {
+  background-color: white; /* Oscurece al hover. */
+  color: #c1d72f;
+}
+
