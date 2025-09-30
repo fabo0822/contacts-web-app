@@ -14,7 +14,6 @@
   display: flex; /* Hace que los elementos se alineen horizontalmente. */
   align-items: center; /* Centra verticalmente los elementos. */
   justify-content: space-between; /* Espacia logo, tabs y botón. */
-  background-color: #f8f8f8; /* Fondo claro como en la imagen. */
   padding: 2vh;
   border-bottom: 1px solid #ddd; /* Línea inferior sutil. */
 }
@@ -40,7 +39,7 @@
 }
 
 .tabs li:hover {
-  color: #c1d72f; /* Verde al hover, como interactivo. */
+  color: #ccc; /* Gris al hover, como interactivo. */
 }
 
 .new-button {
@@ -57,3 +56,19 @@
   color: #c1d72f;
 }
 
+/* Resaltar la pestaña activa. */
+.tabs li {
+  margin: 0 15px;
+  cursor: pointer;
+  color: #333;
+}
+
+.tabs li.active {
+  color: #c1d72f; /* Verde para la pestaña activa. */
+  font-weight: bold;
+}
+
+/* Estilos básicos para las secciones. */
+h2 {
+  margin-top: 20px;
+}
