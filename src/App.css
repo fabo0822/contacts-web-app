@@ -18,10 +18,11 @@
   border-bottom: 1px solid #ddd; /* Línea inferior sutil. */
 }
 
+
 .logo {
-  background-color: #ccc; /* Gris para simular el logo. */
-  padding: 5px 10px;
-  border-radius: 5px;
+  width: 40px; /* Ajusta el tamaño según necesites. */
+  height: auto; /* Mantiene la proporción. */
+  border-radius: 0; /* Quitamos el borde redondeado del div anterior. */
   margin-right: auto; /* Empuja las tabs hacia la derecha. */
 }
 
