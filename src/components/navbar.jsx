@@ -1,16 +1,13 @@
 // Este es un componente separado para el navbar. En React, dividimos la UI en piezas pequeñas para reutilizarlas.
-// Recibimos activeTab y setActiveTab como props desde el componente padre.
+// Recibimos activeTab, setActiveTab y funciones para el popup como props.
 
 import { useState } from 'react';
-import logoImage from '../assets/logo.png'; // Importamos la imagen del logo.
+import logoImage from '../assets/logo.png';
 
-function Navbar({ activeTab, setActiveTab }) {
+function Navbar({ activeTab, setActiveTab, isPopupOpen, setPopupOpen }) {
   return (
     <nav className="navbar">
-      {/* Logo: Usamos una imagen en lugar de un div gris. */}
       <img src={logoImage} alt="Logo" className="logo" />
-
-      {/* Pestañas: Usamos una lista <ul> con eventos onClick para cambiar la pestaña activa. */}
       <ul className="tabs">
         <li
           className={activeTab === 'Overview' ? 'active' : ''}
@@ -31,9 +28,15 @@ function Navbar({ activeTab, setActiveTab }) {
           Favorites
         </li>
       </ul>
-
-      {/* Botón + NEW: Lo reemplazaremos con la imagen en el siguiente paso. */}
-      <button className="new-button">+ NEW</button>
+      <button
+        className="new-button"
+        onClick={() => {
+          setPopupOpen(true); // Abre el popup al hacer clic.
+          // Eliminamos el desplazamiento, ya que el popup está en el flujo.
+        }}
+      >
+        + NEW
+      </button>
     </nav>
   );
 }

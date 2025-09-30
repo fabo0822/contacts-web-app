@@ -136,3 +136,76 @@ h2 {
 .remove-button:hover {
   background-color: #d32f2f;
 }
+
+/* Estilos para el contenedor del popup. */
+.popup-container {
+  position: relative;
+
+}
+
+/* Estilos para el popup en el flujo normal. */
+.popup {
+  background-color: #c3e6a7; /* Verde claro como en la imagen. */
+  padding: 20px;
+  border-radius: 5px;
+  width: 300px;
+  text-align: center;
+  margin: 20px auto; /* Centra y añade margen superior/inferior para separar del navbar. */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Sombra para que parezca destacado. */
+}
+
+.popup-input {
+  width: 80%;
+  margin: 10px 0;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.save-button {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.save-button:hover {
+  background-color: #f0f0f0;
+}
+
+
+
+
+
+
+.remove-button {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.remove-button:hover {
+  background-color: #d32f2f;
+}
+
+.new-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.new-button:hover {
+  background-color: #45a049;
+}
