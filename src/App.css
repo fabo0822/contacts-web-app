@@ -165,6 +165,13 @@ h2 {
   margin-right: auto;
 }
 
+.error-text {
+  color: #d32f2f;
+  font-size: 12px;
+  margin-top: -6px;
+  margin-bottom: 8px;
+}
+
 .save-button {
   background-color: #fff;
   border: 1px solid #ccc;
@@ -198,7 +205,7 @@ h2 {
 }
 
 .new-button {
-  background-color: #4caf50;
+  background-color: #c1d72f; /* Verde como en la imagen. */
   color: white;
   border: none;
   padding: 8px 12px;
