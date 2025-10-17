@@ -1,6 +1,6 @@
 import FavoriteCard from './FavoriteCard';
 
-function Overview({ favorites, contactList, onToggleFavorite, onRemove }) {
+function Overview({ favorites, contactList, onToggleFavorite, onUnfavorite }) {
   return (
     <div className="section">
       <div className="favorites-header">
@@ -14,8 +14,7 @@ function Overview({ favorites, contactList, onToggleFavorite, onRemove }) {
             key={c.id}
             fullName={`${c.firstName} ${c.lastName}`}
             email={c.email}
-            onToggleFavorite={() => onToggleFavorite(c.id)}
-            onRemove={() => onRemove(c.id)}
+            onRemove={() => onUnfavorite(c.id)}
           />
         ))}
       </div>
@@ -32,7 +31,6 @@ function Overview({ favorites, contactList, onToggleFavorite, onRemove }) {
             fullName={`${c.firstName} ${c.lastName}`}
             email={c.email}
             onToggleFavorite={() => onToggleFavorite(c.id)}
-            onRemove={() => onRemove(c.id)}
           />
         ))}
       </div>
