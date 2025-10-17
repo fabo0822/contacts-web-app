@@ -1,17 +1,22 @@
-// Componente para una sola tarjeta de favorito. Recibe "props" (datos) como nombre y email.
+// Tarjeta reutilizable para mostrar un contacto sencillo.
+// Props mínimas: fullName, email, onRemove (opcional), onToggleFavorite (opcional)
 
-function FavoriteCard(props) {
+function FavoriteCard({ fullName, email, onRemove, onToggleFavorite }) {
   return (
     <div className="favorite-card">
-      {/* Círculo con logo: Simulamos con un div gris. */}
       <div className="card-logo">Logo</div>
 
-      {/* Nombre y email. */}
-      <p>{props.name}</p> {/* {props.name} inserta el valor dinámico. */}
-      <p>{props.email}</p>
+      <p>{fullName}</p>
+      <p>{email}</p>
 
-      {/* Botón X REMOVE: Rojo. */}
-      <button className="remove-button">X REMOVE</button>
+      <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
+        {onToggleFavorite && (
+          <button className="save-button" onClick={onToggleFavorite}>★ Toggle</button>
+        )}
+        {onRemove && (
+          <button className="remove-button" onClick={onRemove}>X REMOVE</button>
+        )}
+      </div>
     </div>
   );
 }
