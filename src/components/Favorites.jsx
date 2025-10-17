@@ -1,7 +1,7 @@
-// Componente para la sección Favorites con tarjetas.
+// Componente para la sección Favorites con tarjetas desde datos reales.
 import FavoriteCard from './FavoriteCard';
 
-function Favorites() {
+function Favorites({ favorites, onRemove }) {
   return (
     <div className="section">
       <div className="favorites-header">
@@ -10,14 +10,17 @@ function Favorites() {
       </div>
 
       <div className="favorites-list">
-        <FavoriteCard name="Full Name" email="email@com" />
-        <FavoriteCard name="Full Name" email="email@com" />
-        <FavoriteCard name="Full Name" email="email@com" />
-        <FavoriteCard name="Full Name" email="email@com" />
+        {favorites.map((c) => (
+          <FavoriteCard
+            key={c.id}
+            fullName={`${c.firstName} ${c.lastName}`}
+            email={c.email}
+            onRemove={() => onRemove(c.id)}
+          />
+        ))}
       </div>
     </div>
   );
 }
-
 
 export default Favorites;
