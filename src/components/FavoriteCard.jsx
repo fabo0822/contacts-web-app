@@ -1,7 +1,7 @@
 // Tarjeta reutilizable para mostrar un contacto sencillo.
 // Props mínimas: fullName, email, onRemove (opcional), onToggleFavorite (opcional)
 
-function FavoriteCard({ fullName, email, onRemove, onToggleFavorite }) {
+function FavoriteCard({ fullName, email, onRemove, onToggleFavorite, removeText }) {
   return (
     <div className="favorite-card">
       <div className="card-logo">Logo</div>
@@ -14,7 +14,9 @@ function FavoriteCard({ fullName, email, onRemove, onToggleFavorite }) {
           <button className="save-button" aria-label="toggle favorite" title="Favorite" onClick={onToggleFavorite}>❤</button>
         )}
         {onRemove && (
-          <button className="remove-button" aria-label="remove" title="Remove" onClick={onRemove}>🗑</button>
+          <button className="remove-button" aria-label="remove" title="Remove" onClick={onRemove}>
+            {removeText ? 'X REMOVE' : '🗑'}
+          </button>
         )}
       </div>
     </div>

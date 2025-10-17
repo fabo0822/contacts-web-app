@@ -15,6 +15,7 @@ function Overview({ favorites, contactList, onToggleFavorite, onUnfavorite }) {
             fullName={`${c.firstName} ${c.lastName}`}
             email={c.email}
             onRemove={() => onUnfavorite(c.id)}
+            removeText
           />
         ))}
       </div>
