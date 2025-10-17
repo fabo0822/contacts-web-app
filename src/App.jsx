@@ -7,12 +7,13 @@ import Favorites from './components/Favorites';
 import Popup from './components/Popup';
 
 function App() {
+  const STORAGE_KEY = 'contacts';
   // Estado principal de la app: lista de contactos.
   // Mantengo una estructura simple para aprender: id, nombres, email y si es favorito.
   const [contacts, setContacts] = useState(() => {
     // Carga inicial desde localStorage (persistencia temporal)
     try {
-      const raw = localStorage.getItem('contacts');
+      const raw = localStorage.getItem(STORAGE_KEY);
       if (raw) return JSON.parse(raw);
     } catch {}
     return [
@@ -21,6 +22,26 @@ function App() {
       { id: 3, firstName: 'Grace', lastName: 'Hopper', email: 'grace@example.com', favorite: false },
       { id: 4, firstName: 'Linus', lastName: 'Torvalds', email: 'linus@example.com', favorite: false },
       { id: 5, firstName: 'Margaret', lastName: 'Hamilton', email: 'margaret@example.com', favorite: false },
+      { id: 6, firstName: 'Katherine', lastName: 'Johnson', email: 'katherine@example.com', favorite: false },
+      { id: 7, firstName: 'Tim', lastName: 'Berners-Lee', email: 'tim@example.com', favorite: false },
+      { id: 8, firstName: 'Barbara', lastName: 'Liskov', email: 'barbara@example.com', favorite: false },
+      { id: 9, firstName: 'Edsger', lastName: 'Dijkstra', email: 'edsger@example.com', favorite: false },
+      { id: 10, firstName: 'Donald', lastName: 'Knuth', email: 'donald@example.com', favorite: false },
+      { id: 11, firstName: 'Radia', lastName: 'Perlman', email: 'radia@example.com', favorite: false },
+      { id: 12, firstName: 'Guido', lastName: 'van Rossum', email: 'guido@example.com', favorite: false },
+      { id: 13, firstName: 'Brendan', lastName: 'Eich', email: 'brendan@example.com', favorite: false },
+      { id: 14, firstName: 'Yukihiro', lastName: 'Matsumoto', email: 'matsumoto@example.com', favorite: false },
+      { id: 15, firstName: 'Bjarne', lastName: 'Stroustrup', email: 'bjarne@example.com', favorite: false },
+      { id: 16, firstName: 'Ken', lastName: 'Thompson', email: 'ken@example.com', favorite: false },
+      { id: 17, firstName: 'Dennis', lastName: 'Ritchie', email: 'dennis@example.com', favorite: false },
+      { id: 18, firstName: 'James', lastName: 'Gosling', email: 'james@example.com', favorite: false },
+      { id: 19, firstName: 'Adele', lastName: 'Goldberg', email: 'adele@example.com', favorite: false },
+      { id: 20, firstName: 'Hedy', lastName: 'Lamarr', email: 'hedy@example.com', favorite: false },
+      { id: 21, firstName: 'John', lastName: 'Backus', email: 'johnb@example.com', favorite: false },
+      { id: 22, firstName: 'Niklaus', lastName: 'Wirth', email: 'niklaus@example.com', favorite: false },
+      { id: 23, firstName: 'Adele', lastName: 'Shamir', email: 'shamir@example.com', favorite: false },
+      { id: 24, firstName: 'Whitfield', lastName: 'Diffie', email: 'whitfield@example.com', favorite: false },
+      { id: 25, firstName: 'Leslie', lastName: 'Lamport', email: 'leslie@example.com', favorite: false },
     ];
   });
   const [activeTab, setActiveTab] = useState('Overview');
@@ -49,7 +70,7 @@ function App() {
   // Persistencia temporal cada vez que cambia contacts
   useEffect(() => {
     try {
-      localStorage.setItem('contacts', JSON.stringify(contacts));
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(contacts));
     } catch {}
   }, [contacts]);
 
