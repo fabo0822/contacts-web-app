@@ -42,6 +42,10 @@ function App() {
     setContacts((prev) => prev.filter((c) => c.id !== id));
   };
 
+  const unFavorite = (id) => {
+    setContacts((prev) => prev.map((c) => (c.id === id ? { ...c, favorite: false } : c)));
+  };
+
   // Persistencia temporal cada vez que cambia contacts
   useEffect(() => {
     try {
@@ -73,7 +77,7 @@ function App() {
           favorites={favorites}
           contactList={contactList}
           onToggleFavorite={toggleFavorite}
-          onRemove={removeContact}
+          onUnfavorite={unFavorite}
         />
       )}
 
@@ -82,7 +86,7 @@ function App() {
       )}
 
       {activeTab === 'Favorites' && (
-        <Favorites favorites={contacts.filter((c) => c.favorite)} onRemove={removeContact} />
+        <Favorites favorites={contacts.filter((c) => c.favorite)} onUnfavorite={unFavorite} />
       )}
     </div>
   );
