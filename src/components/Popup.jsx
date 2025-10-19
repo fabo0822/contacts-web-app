@@ -9,6 +9,7 @@ function Popup({ isOpen, onClose, onSave }) {
   const [email, setEmail] = useState('');
   const [favorite, setFavorite] = useState(false);
   const [errors, setErrors] = useState({});
+  const [imageData, setImageData] = useState('');
 
   const handleSave = () => {
     const newErrors = {};
@@ -20,7 +21,17 @@ function Popup({ isOpen, onClose, onSave }) {
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) return;
 
-    onSave({ firstName, lastName, email, favorite });
+    onSave({ firstName, lastName, email, favorite, imageUrl: imageData });
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImageData(String(reader.result));
+    };
+    reader.readAsDataURL(file); // Guardamos en base64 para uso temporal
   };
 
   return (
@@ -35,6 +46,10 @@ function Popup({ isOpen, onClose, onSave }) {
       <label>
         <input type="checkbox" checked={favorite} onChange={(e) => setFavorite(e.target.checked)} /> Enable like favorite
       </label>
+      <input type="file" accept="image/*" className="popup-input" onChange={handleFileChange} />
+      {imageData && (
+        <img src={imageData} alt="preview" style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '50%', display: 'block', margin: '0 auto' }} />
+      )}
       <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
         <button className="save-button" onClick={handleSave}>SAVE</button>
         <button className="remove-button" onClick={onClose}>CANCEL</button>
