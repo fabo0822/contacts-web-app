@@ -63,7 +63,7 @@ function App() {
 
   // Datos derivados para Overview.
   const favorites = contacts.filter((c) => c.favorite).slice(0, 4);
-  const contactList = contacts.slice(0, 12);
+  const contactList = contacts.filter((c) => !c.favorite).slice(0, 12);
 
   return (
     <div className="App">
