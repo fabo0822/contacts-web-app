@@ -31,8 +31,7 @@ function Navbar({ activeTab, setActiveTab, isPopupOpen, setPopupOpen }) {
       <button
         className="new-button"
         onClick={() => {
-          setPopupOpen(true); // Abre el popup al hacer clic.
-          // Eliminamos el desplazamiento, ya que el popup está en el flujo.
+          setPopupOpen(!isPopupOpen); // Toggle: abre si está cerrado, cierra si está abierto
         }}
       >
         + NEW
