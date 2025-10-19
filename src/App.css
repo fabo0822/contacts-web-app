@@ -68,6 +68,12 @@
 h2 {
   margin-top: 20px;
   margin-left: 4vh;
+ 
+}
+
+hr {
+  border: 1px solid #ddd;
+  margin: 10px 0;
 }
 
 /* Estilos para las secciones. */
@@ -75,7 +81,9 @@ h2 {
   margin-top: 20px;
 
 }
-
+.favorite-card-name {
+  font-weight: bold;
+}
 
 .favorites-header {
   display: flex;          /* <--- clave para que estén en la misma fila */
@@ -110,8 +118,8 @@ h2 {
 
 .card-logo {
   background-color: #ccc;
-  width: 30vh;
-  height: 30vh;
+  width: 25vh;
+  height: 25vh;
   border-radius: 50%;
   margin: 0 auto 10px;
   display: flex;
@@ -180,14 +188,17 @@ h2 {
 
 /* Corazón verde para agregar a favoritos */
 .heart-button {
-  padding: 5px 10px;
+  padding: 5px 8px;
   margin-top: 10px;
+  margin-right: 50px;
+  border-radius: 5px;
   border: 2px solid var(--color-green);
   color: var(--color-green);
   background: transparent;
 }
 .heart-button:hover {
   background: var(--color-green-ghost);
+  cursor: pointer;
 }
 
 
@@ -197,19 +208,20 @@ h2 {
 
 
 /* Paginación */
-.save-button[disabled] {
+/* .save-button[disabled] {
   opacity: 0.5;
   cursor: not-allowed;
-}
+} */
 
 /* Variante sin fondo para botón REMOVE en favoritos */
 .remove-button.remove-button--plain {
   background: transparent !important;
   color: #ef6c77;
-  border: 1px solid #efc2c7;
+  border: 1px solid #cf6679;
+  margin-right: 50px;
 }
 .remove-button.remove-button--plain:hover {
   background: #fdebee !important; /* leve rosa al hover */
-  border-color: #ef6c77;
+  border-color: #cf6679;
   
 }
