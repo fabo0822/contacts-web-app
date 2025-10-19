@@ -58,12 +58,6 @@
   color: #c1d72f;
 }
 
-/* Resaltar la pestaña activa. */
-.tabs li {
-  margin: 0 15px;
-  cursor: pointer;
-  color: #333;
-}
 
 .tabs li.active {
   color: var(--color-green); /* Verde para la pestaña activa. */
@@ -126,7 +120,6 @@ h2 {
 }
 
 .remove-button {
-
   color: red;
   padding: 5px 10px;
   border-radius: 5px;
@@ -138,11 +131,6 @@ h2 {
   background-color: #d32f2f;
 }
 
-/* Estilos para el contenedor del popup. */
-.popup-container {
-  position: relative;
-
-}
 
 /* Estilos para el popup en el flujo normal. */
 .popup {
@@ -190,8 +178,8 @@ h2 {
   padding: 5px 10px;
   margin-top: 10px;
   border: 2px solid var(--color-green);
-  color: #c1d72f;
-
+  color: var(--color-green);
+  background: transparent;
 }
 .heart-button:hover {
   background: var(--color-green-ghost);
@@ -202,31 +190,6 @@ h2 {
 
 
 
-.remove-button {
-
-  color: red;
-  padding: 5px 10px;
-  border: 1px solid red;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.remove-button:hover {
-  background-color: #d32f2f;
-}
-
-.new-button {
-  background-color: #c1d72f; /* Verde como en la imagen. */
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.new-button:hover {
-  background-color: #45a049;
-}
 
 /* Paginación */
 .save-button[disabled] {
