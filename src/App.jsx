@@ -1,6 +1,6 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import { listContacts, saveContacts, addContact as svcAdd, updateContact as svcUpdate, deleteContact as svcDelete } from './services/contactService';
+import { listContacts, saveContacts, addContact as svcAdd, updateContact as svcUpdate, deleteContact as svcDelete, testApi } from './services/contactService';
 import Navbar from './components/Navbar';
 import Overview from './components/Overview';
 import Contacts from './components/Contacts';
@@ -44,6 +44,8 @@ function App() {
   });
   const [activeTab, setActiveTab] = useState('Overview');
   const [isPopupOpen, setPopupOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [offline, setOffline] = useState(false);
 
   // Handlers sencillos
   const addContact = async (newContact) => {
@@ -72,9 +74,12 @@ function App() {
   // Persistencia temporal cada vez que cambia contacts
   useEffect(() => {
     (async () => {
-      // Si hay API, listContacts podría ser async; refrescamos al montar.
+      setLoading(true);
+      const apiOk = await testApi();
+      setOffline(!apiOk);
       const result = await listContacts();
       if (Array.isArray(result) && result.length > 0) setContacts(result);
+      setLoading(false);
     })();
   }, []);
 
@@ -88,6 +93,11 @@ function App() {
 
   return (
     <div className="App">
+      {offline && (
+        <div style={{ background: '#fff3cd', color: '#856404', padding: '6px 12px', borderBottom: '1px solid #ffeeba', textAlign: 'center' }}>
+          Trabajando en modo offline (usando almacenamiento local)
+        </div>
+      )}
       <Navbar activeTab={activeTab} setActiveTab={setActiveTab} isPopupOpen={isPopupOpen} setPopupOpen={setPopupOpen} />
 
       {isPopupOpen && (
@@ -101,7 +111,9 @@ function App() {
         />
       )}
 
-      {activeTab === 'Overview' && (
+      {loading ? (
+        <div style={{ padding: '24px', textAlign: 'center' }}>Cargando...</div>
+      ) : activeTab === 'Overview' && (
         <Overview
           favorites={favorites}
           contactList={contactList}
