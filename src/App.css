@@ -119,6 +119,10 @@ h2 {
   justify-content: center;
 }
 
+.card-logo--favorite {
+  border: 3px solid var(--color-green);
+}
+
 .remove-button {
   color: red;
   padding: 5px 10px;
