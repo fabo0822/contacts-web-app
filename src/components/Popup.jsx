@@ -42,8 +42,15 @@ function Popup({ isOpen, onClose, onSave }) {
       lastName: lastName.trim(), 
       email: email.trim(), 
       favorite, 
-      imageUrl: imageData 
+      imageUrl: null // Siempre null por ahora, el backend usará imagen por defecto
     });
+    
+    // Limpiar el formulario después de guardar
+    setFirstName('');
+    setLastName('');
+    setEmail('');
+    setFavorite(false);
+    setImageData('');
   };
 
   const handleFileChange = (e) => {
