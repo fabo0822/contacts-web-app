@@ -62,16 +62,16 @@ function Popup({ isOpen, onClose, onSave }) {
       <input type="text" placeholder="First name" className="popup-input" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
       <input type="text" placeholder="Last name" className="popup-input" value={lastName} onChange={(e) => setLastName(e.target.value)} />
       <input type="email" placeholder="Email" className="popup-input" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <label>
-        <input type="checkbox" checked={favorite} onChange={(e) => setFavorite(e.target.checked)} /> Enable like favorite
-      </label>
       <input type="file" accept="image/*" className="popup-input" onChange={handleFileChange} />
       {imageData && (
         <img src={imageData} alt="preview" style={{ width: '100px', height: '100px', objectFit: 'cover', borderRadius: '50%', display: 'block', margin: '0 auto' }} />
       )}
-      <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
+      <div className="popup-checkbox">
+        <label>Enable like favorite</label>
+        <input type="checkbox" checked={favorite} onChange={(e) => setFavorite(e.target.checked)} />
+      </div>
+      <div className="popup-save-container">
         <button className="save-button" onClick={handleSave}>SAVE</button>
-        <button className="remove-button" onClick={onClose}>CANCEL</button>
       </div>
     </div>
   );

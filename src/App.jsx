@@ -29,10 +29,13 @@ function App() {
   // Handlers sencillos
   const addContact = async (newContact) => {
     try {
+      console.log('Enviando contacto:', newContact); // Debug
       const created = await svcAdd(newContact);
+      console.log('Contacto creado:', created); // Debug
       setContacts([...contacts, created]);
     } catch (error) {
-      alert('Error al crear el contacto. Intenta nuevamente.');
+      console.error('Error detallado:', error); // Debug
+      alert(`Error al crear el contacto: ${error.message}. Verifica que el servidor esté funcionando.`);
     }
   };
 

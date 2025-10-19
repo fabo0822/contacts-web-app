@@ -28,15 +28,25 @@ export async function getContacts() {
 // Agregar nuevo contacto
 export async function addContact(newContact) {
   try {
+    console.log('URL de la API:', getApiUrl('/contacts')); // Debug
     const response = await fetch(getApiUrl('/contacts'), {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newContact)
     });
+    
+    console.log('Respuesta del servidor:', response.status, response.statusText); // Debug
+    
     if (response.ok) {
-      return await response.json();
+      const result = await response.json();
+      console.log('Contacto creado exitosamente:', result); // Debug
+      return result;
     }
-    throw new Error('Error al crear contacto');
+    
+    // Si no es exitosa, obtener el mensaje de error del servidor
+    const errorText = await response.text();
+    console.error('Error del servidor:', errorText); // Debug
+    throw new Error(`Error del servidor (${response.status}): ${errorText}`);
   } catch (error) {
     console.error('Error al crear contacto:', error);
     throw error;

@@ -57,8 +57,9 @@
 .new-button:hover {
   background-color: white; /* Oscurece al hover. */
   color: #c1d72f;
-  transform: scale(1.05); /* Efecto de crecimiento */
-  box-shadow: 0 4px 8px rgba(193, 215, 47, 0.3); /* Sombra verde en hover */
+  transform: scale(1.1); /* Efecto de crecimiento más pronunciado */
+  box-shadow: 0 6px 12px rgba(193, 215, 47, 0.4); /* Sombra verde más intensa */
+  border: 2px solid var(--color-green); /* Borde verde en hover */
 }
 
 
@@ -136,18 +137,18 @@ hr {
 }
 
 .remove-button {
-  color: red;
+  color: var(--color-red);
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
   font-size: 20px; /* Icono más grande */
-  border: 2px solid #ff69b4; /* Borde rosado */
+  border: 2px solid var(--color-red-border); /* Borde rosado */
   transition: all 0.3s ease; /* Transición suave */
 }
 
 .remove-button:hover {
-  background-color: #d32f2f;
+  background-color: transparent;
   border-color: #ff69b4; /* Mantener borde rosado en hover */
   transform: scale(1.05); /* Efecto de crecimiento */
   box-shadow: 0 4px 8px rgba(255, 105, 180, 0.3); /* Sombra rosada en hover */
@@ -174,6 +175,7 @@ hr {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  background-color: #f0f8e8; /* Verde claro como en la imagen */
 }
 
 .error-text {
@@ -196,6 +198,28 @@ hr {
   background-color: #f0f0f0;
   transform: scale(1.05); /* Efecto de crecimiento */
   box-shadow: 0 4px 8px rgba(193, 215, 47, 0.3); /* Sombra verde en hover */
+}
+
+/* Estilos para el checkbox en el popup */
+.popup-checkbox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.popup-checkbox input[type="checkbox"] {
+  margin-left: 10px;
+}
+
+/* Centrar solo el botón SAVE */
+.popup-save-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
 }
 
 /* Corazón verde para agregar a favoritos */
@@ -237,8 +261,8 @@ hr {
 /* Variante sin fondo para botón REMOVE en favoritos */
 .remove-button.remove-button--plain {
   background: transparent !important;
-  color: #ef6c77;
-  border: 1px solid #cf6679;
+  color: var(--color-red);
+  border: 1px solid var(--color-red-border);
   margin-right: 50px;
   transition: all 0.3s ease; /* Transición suave */
 }
@@ -248,8 +272,8 @@ hr {
   margin-right: 0;
 }
 .remove-button.remove-button--plain:hover {
-  background: #fdebee !important; /* leve rosa al hover */
-  border-color: #cf6679;
+  background: var(--color-red-ghost) !important; /* leve rosa al hover */
+  border-color: var(--color-red-border);
   transform: scale(1.05); /* Efecto de crecimiento */
-  box-shadow: 0 4px 8px rgba(239, 108, 119, 0.3); /* Sombra rosa en hover */
+  
 }
