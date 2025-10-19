@@ -1,7 +1,7 @@
 // Servicio de datos listo para backend.
 // Usa API si VITE_API_BASE está definida; si no, cae en localStorage.
 const STORAGE_KEY = 'contacts';
-const API_BASE = import.meta.env.VITE_API_BASE;
+const API_BASE = import.meta.env.VITE_API_URL;
 const USE_API = Boolean(API_BASE);
 
 async function apiGet(path) {
