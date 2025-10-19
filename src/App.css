@@ -138,10 +138,13 @@ hr {
   border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
+  font-size: 20px; /* Icono más grande */
+  border: 2px solid #ff69b4; /* Borde rosado */
 }
 
 .remove-button:hover {
   background-color: #d32f2f;
+  border-color: #ff69b4; /* Mantener borde rosado en hover */
 }
 
 
@@ -195,6 +198,7 @@ hr {
   border: 2px solid var(--color-green);
   color: var(--color-green);
   background: transparent;
+  font-size: 18px; /* Icono más grande */
 }
 .heart-button:hover {
   background: var(--color-green-ghost);
