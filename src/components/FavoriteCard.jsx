@@ -3,10 +3,10 @@
 
 import logoImage from '../assets/logo.png';
 
-function FavoriteCard({ fullName, email, onRemove, onToggleFavorite, removeText, imageUrl }) {
+function FavoriteCard({ fullName, email, onRemove, onToggleFavorite, removeText, imageUrl, highlight, removePlain }) {
   return (
     <div className="favorite-card">
-      <div className="card-logo" style={{ overflow: 'hidden' }}>
+      <div className="card-logo" style={{ overflow: 'hidden', border: highlight ? '4px solid #c1d72f' : 'none' }}>
         <img src={imageUrl || logoImage} alt="avatar" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
       </div>
 
@@ -18,7 +18,7 @@ function FavoriteCard({ fullName, email, onRemove, onToggleFavorite, removeText,
           <button className="save-button" aria-label="toggle favorite" title="Favorite" onClick={onToggleFavorite}>❤</button>
         )}
         {onRemove && (
-          <button className="remove-button" aria-label="remove" title="Remove" onClick={onRemove}>
+          <button className={removePlain ? 'remove-button remove-button--plain' : 'remove-button'} aria-label="remove" title="Remove" onClick={onRemove}>
             {removeText ? 'X REMOVE' : '🗑'}
           </button>
         )}

@@ -17,6 +17,8 @@ function Overview({ favorites, contactList, onToggleFavorite, onUnfavorite }) {
             imageUrl={c.imageUrl}
             onRemove={() => onUnfavorite(c.id)}
             removeText
+            highlight
+            removePlain
           />
         ))}
       </div>
