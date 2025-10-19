@@ -216,3 +216,9 @@ h2 {
 .new-button:hover {
   background-color: #45a049;
 }
+
+/* Paginación */
+.save-button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
