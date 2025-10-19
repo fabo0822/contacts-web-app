@@ -29,7 +29,7 @@ function Overview({ favorites, contactList, onToggleFavorite, onUnfavorite }) {
       </div>
 
       <div className="favorites-list">
-        {contactList.map((c) => (
+        {contactList.filter((c) => !c.favorite).map((c) => (
           <FavoriteCard
             key={c.id}
             fullName={`${c.firstName} ${c.lastName}`}

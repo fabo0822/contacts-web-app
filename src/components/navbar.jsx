@@ -2,12 +2,12 @@
 // Recibimos activeTab, setActiveTab y funciones para el popup como props.
 
 import { useState } from 'react';
-import logoImage from '../assets/logo.png';
+import logoImage from '../assets/globant.png';
 
 function Navbar({ activeTab, setActiveTab, isPopupOpen, setPopupOpen }) {
   return (
     <nav className="navbar">
-      <img src={logoImage} alt="Logo" className="logo" />
+      <img src={logoImage} alt="Globant Logo" className="logo" />
       <ul className="tabs">
         <li
           className={activeTab === 'Overview' ? 'active' : ''}

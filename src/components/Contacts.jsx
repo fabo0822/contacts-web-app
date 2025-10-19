@@ -26,6 +26,7 @@ function Contacts({ contacts, onToggleFavorite, onRemove }) {
             email={c.email}
             imageUrl={c.imageUrl}
             onToggleFavorite={() => onToggleFavorite(c.id)}
+            isFavorite={c.favorite}
             onRemove={() => onRemove(c.id)}
           />
         ))}
