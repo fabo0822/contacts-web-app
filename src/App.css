@@ -45,7 +45,7 @@
 }
 
 .new-button {
-  background-color: #c1d72f; /* Verde como en la imagen. */
+  background-color: var(--color-green); /* Verde como en la imagen. */
   color: black;
   border: none;
   padding: 8px 12px;
@@ -66,7 +66,7 @@
 }
 
 .tabs li.active {
-  color: #c1d72f; /* Verde para la pestaña activa. */
+  color: var(--color-green); /* Verde para la pestaña activa. */
   font-weight: bold;
 }
 
@@ -93,7 +93,7 @@ h2 {
 .line {
   flex: 1;                /* ocupa todo el espacio disponible */
   height: 2px;
-  background-color: #c1d72f;
+  background-color: var(--color-green);
   margin-right: 2vw;
 }
 
@@ -189,12 +189,12 @@ h2 {
 .heart-button {
   padding: 5px 10px;
   margin-top: 10px;
-  border: 2px solid #c1d72f;
+  border: 2px solid var(--color-green);
   color: #c1d72f;
 
 }
 .heart-button:hover {
-  background: rgba(193, 215, 47, 0.12);
+  background: var(--color-green-ghost);
 }
 
 
