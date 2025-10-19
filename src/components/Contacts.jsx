@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import FavoriteCard from './FavoriteCard';
 import Pagination from './Pagination';
 
@@ -7,9 +7,10 @@ function Contacts({ contacts, onToggleFavorite, onRemove }) {
   const [page, setPage] = useState(1);
   const totalPages = Math.max(1, Math.ceil(contacts.length / pageSize));
   
-  // Calcular qué contactos mostrar en esta página
-  const start = (page - 1) * pageSize;
-  const pageItems = contacts.slice(start, start + pageSize);
+  const pageItems = useMemo(() => {
+    const start = (page - 1) * pageSize;
+    return contacts.slice(start, start + pageSize);
+  }, [contacts, page]);
 
   return (
     <div className="section">
