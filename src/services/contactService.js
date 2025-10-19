@@ -33,7 +33,13 @@ async function apiDelete(path) {
 }
 
 export async function listContacts() {
-  if (USE_API) return await apiGet('/contacts');
+  if (USE_API) {
+    try {
+      return await apiGet('/contacts');
+    } catch (e) {
+      console.warn('API no disponible, usando almacenamiento local.', e);
+    }
+  }
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     return raw ? JSON.parse(raw) : [];
@@ -50,7 +56,13 @@ export async function saveContacts(contacts) {
 }
 
 export async function addContact(partial) {
-  if (USE_API) return await apiPost('/contacts', partial);
+  if (USE_API) {
+    try {
+      return await apiPost('/contacts', partial);
+    } catch (e) {
+      console.warn('POST API falló, guardando localmente.', e);
+    }
+  }
   const all = await listContacts();
   const nextId = all.length === 0 ? 1 : Math.max(...all.map((c) => c.id)) + 1;
   const newContact = { id: nextId, ...partial };
@@ -60,7 +72,13 @@ export async function addContact(partial) {
 }
 
 export async function updateContact(id, patch) {
-  if (USE_API) return await apiPut(`/contacts/${id}`, patch);
+  if (USE_API) {
+    try {
+      return await apiPut(`/contacts/${id}`, patch);
+    } catch (e) {
+      console.warn('PUT API falló, actualizando localmente.', e);
+    }
+  }
   const all = await listContacts();
   const updated = all.map((c) => (c.id === id ? { ...c, ...patch } : c));
   await saveContacts(updated);
@@ -68,10 +86,27 @@ export async function updateContact(id, patch) {
 }
 
 export async function deleteContact(id) {
-  if (USE_API) return await apiDelete(`/contacts/${id}`);
+  if (USE_API) {
+    try {
+      return await apiDelete(`/contacts/${id}`);
+    } catch (e) {
+      console.warn('DELETE API falló, eliminando localmente.', e);
+    }
+  }
   const all = await listContacts();
   const updated = all.filter((c) => c.id !== id);
   await saveContacts(updated);
+}
+
+// Permite saber si la API está disponible (para mostrar banner Offline)
+export async function testApi() {
+  if (!USE_API) return false;
+  try {
+    await apiGet('/contacts');
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 
