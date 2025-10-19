@@ -6,7 +6,7 @@ import logoImage from '../assets/logo.png';
 function FavoriteCard({ fullName, email, onRemove, onToggleFavorite, imageUrl, isFavorite, showRemoveText }) {
   return (
     <div className="favorite-card">
-      <div className={`card-logo ${isFavorite ? 'card-logo--favorite' : ''}`}>
+      <div className={`card-logo ${isFavorite ? 'favorite' : ''}`}>
         <img src={imageUrl || logoImage} alt="avatar" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
       </div>
 

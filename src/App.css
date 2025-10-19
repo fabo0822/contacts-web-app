@@ -119,7 +119,8 @@ h2 {
   justify-content: center;
 }
 
-.card-logo--favorite {
+/* Borde verde para contactos favoritos */
+.card-logo.favorite {
   border: 3px solid var(--color-green);
 }
 
