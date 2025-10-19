@@ -1,10 +1,14 @@
 // Tarjeta reutilizable para mostrar un contacto sencillo.
 // Props mínimas: fullName, email, onRemove (opcional), onToggleFavorite (opcional)
 
-function FavoriteCard({ fullName, email, onRemove, onToggleFavorite, removeText }) {
+import logoImage from '../assets/logo.png';
+
+function FavoriteCard({ fullName, email, onRemove, onToggleFavorite, removeText, imageUrl }) {
   return (
     <div className="favorite-card">
-      <div className="card-logo">Logo</div>
+      <div className="card-logo">
+        <img src={imageUrl || logoImage} alt="avatar" style={{ width: '85%', height: '85%', objectFit: 'contain', borderRadius: '50%' }} />
+      </div>
 
       <p>{fullName}</p>
       <p>{email}</p>
