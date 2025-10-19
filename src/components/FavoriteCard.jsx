@@ -14,9 +14,9 @@ function FavoriteCard({ fullName, email, onRemove, onToggleFavorite, removeText,
       <p>{email}</p>
 
       <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
-        {onToggleFavorite && (
-          <button className="save-button" aria-label="toggle favorite" title="Favorite" onClick={onToggleFavorite}>❤</button>
-        )}
+          {onToggleFavorite && (
+            <button className="heart-button" aria-label="toggle favorite" title="Favorite" onClick={onToggleFavorite}>❤</button>
+          )}
         {onRemove && (
           <button className={removePlain ? 'remove-button remove-button--plain' : 'remove-button'} aria-label="remove" title="Remove" onClick={onRemove}>
             {removeText ? 'X REMOVE' : '🗑'}

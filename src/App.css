@@ -174,8 +174,7 @@ h2 {
 }
 
 .save-button {
-  background-color: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #c1d72f;
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
@@ -186,17 +185,28 @@ h2 {
   background-color: #f0f0f0;
 }
 
+/* Corazón verde para agregar a favoritos */
+.heart-button {
+  padding: 5px 10px;
+  margin-top: 10px;
+  border: 2px solid #c1d72f;
+  color: #c1d72f;
+
+}
+.heart-button:hover {
+  background: rgba(193, 215, 47, 0.12);
+}
+
 
 
 
 
 
 .remove-button {
-  background-color: #f44336;
-  color: white;
-  border: none;
+
+  color: red;
   padding: 5px 10px;
-  border-radius: 5px;
+  border: 1px solid red;
   cursor: pointer;
   margin-top: 10px;
 }
@@ -233,4 +243,5 @@ h2 {
 .remove-button.remove-button--plain:hover {
   background: #fdebee !important; /* leve rosa al hover */
   border-color: #ef6c77;
+  
 }
