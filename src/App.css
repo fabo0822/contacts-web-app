@@ -223,3 +223,14 @@ h2 {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* Variante sin fondo para botón REMOVE en favoritos */
+.remove-button.remove-button--plain {
+  background: transparent !important;
+  color: #ef6c77;
+  border: 1px solid #efc2c7;
+}
+.remove-button.remove-button--plain:hover {
+  background: #fdebee !important; /* leve rosa al hover */
+  border-color: #ef6c77;
+}
