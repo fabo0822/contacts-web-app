@@ -3,10 +3,10 @@
 
 import logoImage from '../assets/logo.png';
 
-function FavoriteCard({ fullName, email, onRemove, onToggleFavorite, removeText, imageUrl, highlight, removePlain, isFavorite }) {
+function FavoriteCard({ fullName, email, onRemove, onToggleFavorite, imageUrl, isFavorite, showRemoveText }) {
   return (
     <div className="favorite-card">
-      <div className="card-logo" style={{ overflow: 'hidden', border: highlight ? '4px solid #c1d72f' : 'none' }}>
+      <div className="card-logo">
         <img src={imageUrl || logoImage} alt="avatar" style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '50%' }} />
       </div>
 
@@ -14,19 +14,20 @@ function FavoriteCard({ fullName, email, onRemove, onToggleFavorite, removeText,
       <p>{email}</p>
 
       <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
-          {onToggleFavorite && (
-            <button
-              className={isFavorite ? 'remove-button remove-button--plain' : 'heart-button'}
-              aria-label="toggle favorite"
-              title={isFavorite ? 'Unfavorite' : 'Favorite'}
-              onClick={onToggleFavorite}
-            >
-              {isFavorite ? '✕' : '❤'}
-            </button>
-          )}
+        {onToggleFavorite && (
+          <button
+            className={isFavorite ? 'remove-button remove-button--plain' : 'heart-button'}
+            onClick={onToggleFavorite}
+          >
+            {isFavorite ? '✕' : '❤'}
+          </button>
+        )}
         {onRemove && (
-          <button className={removePlain ? 'remove-button remove-button--plain' : 'remove-button'} aria-label="remove" title="Remove" onClick={onRemove}>
-            {removeText ? 'X REMOVE' : '🗑'}
+          <button 
+            className={showRemoveText ? 'remove-button remove-button--plain' : 'remove-button'} 
+            onClick={onRemove}
+          >
+            {showRemoveText ? 'X REMOVE' : '🗑'}
           </button>
         )}
       </div>

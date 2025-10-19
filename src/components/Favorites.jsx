@@ -26,9 +26,7 @@ function Favorites({ favorites, onUnfavorite }) {
             email={c.email}
             imageUrl={c.imageUrl}
             onRemove={() => onUnfavorite(c.id)}
-            removeText
-            highlight
-            removePlain
+            showRemoveText
           />
         ))}
       </div>
