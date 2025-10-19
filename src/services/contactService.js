@@ -1,120 +1,114 @@
-// Servicio de datos listo para backend.
-// Usa API si VITE_API_BASE está definida; si no, cae en localStorage.
+// Servicio simple para contactos con backend
 const STORAGE_KEY = 'contacts';
-const API_BASE = import.meta.env.VITE_API_URL;
-const PATH_PREFIX = import.meta.env.VITE_API_PATH_PREFIX || '/api';
-const USE_API = Boolean(API_BASE);
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5239';
 
-function withPrefix(path) {
-  // En dev con proxy de Vite, usamos solo PATH_PREFIX para evitar CORS
-  if (import.meta.env.DEV && PATH_PREFIX) return `${PATH_PREFIX}${path}`;
-  // En producción/directo, usamos API_BASE + PATH_PREFIX
-  return `${API_BASE || ''}${PATH_PREFIX}${path}`;
-}
+// Verificar si hay API configurada
+const hasApi = Boolean(import.meta.env.VITE_API_URL);
 
-async function apiGet(path) {
-  const res = await fetch(withPrefix(path));
-  if (!res.ok) throw new Error('API GET failed');
-  return await res.json();
-}
-async function apiPost(path, body) {
-  const res = await fetch(withPrefix(path), {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
-  if (!res.ok) throw new Error('API POST failed');
-  return await res.json();
-}
-async function apiPut(path, body) {
-  const res = await fetch(withPrefix(path), {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
-  });
-  if (!res.ok) throw new Error('API PUT failed');
-  return await res.json();
-}
-async function apiDelete(path) {
-  const res = await fetch(withPrefix(path), { method: 'DELETE' });
-  if (!res.ok) throw new Error('API DELETE failed');
+// Función para construir la URL correcta
+function getApiUrl(path) {
+  if (import.meta.env.DEV && hasApi) {
+    // En desarrollo, usar proxy de Vite
+    return `/api${path}`;
+  }
+  // En producción o sin proxy, usar URL completa
+  return `${API_URL}${path}`;
 }
 
-export async function listContacts() {
-  if (USE_API) {
+// Obtener todos los contactos
+export async function getContacts() {
+  if (hasApi) {
     try {
-      return await apiGet('/contacts');
-    } catch (e) {
-      console.warn('API no disponible, usando almacenamiento local.', e);
+      const response = await fetch(getApiUrl('/contacts'));
+      if (response.ok) {
+        return await response.json();
+      }
+    } catch (error) {
+      console.log('API no disponible, usando datos locales');
     }
   }
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
+  
+  // Fallback a localStorage
+  const contacts = localStorage.getItem(STORAGE_KEY);
+  return contacts ? JSON.parse(contacts) : [];
 }
 
-export async function saveContacts(contacts) {
-  if (USE_API) return; // en API, la persistencia es por endpoint
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(contacts));
-  } catch {}
+// Guardar contactos (solo para localStorage)
+export function saveContacts(contacts) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(contacts));
 }
 
-export async function addContact(partial) {
-  if (USE_API) {
+// Agregar nuevo contacto
+export async function addContact(newContact) {
+  if (hasApi) {
     try {
-      return await apiPost('/contacts', partial);
-    } catch (e) {
-      console.warn('POST API falló, guardando localmente.', e);
+      const response = await fetch(getApiUrl('/contacts'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newContact)
+      });
+      if (response.ok) {
+        return await response.json();
+      }
+    } catch (error) {
+      console.log('Error al crear contacto en API, guardando localmente');
     }
   }
-  const all = await listContacts();
-  const nextId = all.length === 0 ? 1 : Math.max(...all.map((c) => c.id)) + 1;
-  const newContact = { id: nextId, ...partial };
-  const updated = [...all, newContact];
-  await saveContacts(updated);
-  return newContact;
+  
+  // Fallback a localStorage
+  const contacts = await getContacts();
+  const nextId = contacts.length === 0 ? 1 : contacts[contacts.length - 1].id + 1;
+  const contact = { id: nextId, ...newContact };
+  contacts.push(contact);
+  saveContacts(contacts);
+  return contact;
 }
 
-export async function updateContact(id, patch) {
-  if (USE_API) {
+// Actualizar contacto
+export async function updateContact(id, changes) {
+  if (hasApi) {
     try {
-      return await apiPut(`/contacts/${id}`, patch);
-    } catch (e) {
-      console.warn('PUT API falló, actualizando localmente.', e);
+      const response = await fetch(getApiUrl(`/contacts/${id}`), {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(changes)
+      });
+      if (response.ok) {
+        return await response.json();
+      }
+    } catch (error) {
+      console.log('Error al actualizar en API, actualizando localmente');
     }
   }
-  const all = await listContacts();
-  const updated = all.map((c) => (c.id === id ? { ...c, ...patch } : c));
-  await saveContacts(updated);
-  return updated.find((c) => c.id === id) || null;
+  
+  // Fallback a localStorage
+  const contacts = await getContacts();
+  const index = contacts.findIndex(c => c.id === id);
+  if (index !== -1) {
+    contacts[index] = { ...contacts[index], ...changes };
+    saveContacts(contacts);
+  }
 }
 
+// Eliminar contacto
 export async function deleteContact(id) {
-  if (USE_API) {
+  if (hasApi) {
     try {
-      return await apiDelete(`/contacts/${id}`);
-    } catch (e) {
-      console.warn('DELETE API falló, eliminando localmente.', e);
+      const response = await fetch(getApiUrl(`/contacts/${id}`), {
+        method: 'DELETE'
+      });
+      if (response.ok) {
+        return;
+      }
+    } catch (error) {
+      console.log('Error al eliminar en API, eliminando localmente');
     }
   }
-  const all = await listContacts();
-  const updated = all.filter((c) => c.id !== id);
-  await saveContacts(updated);
-}
-
-// Permite saber si la API está disponible (para mostrar banner Offline)
-export async function testApi() {
-  if (!USE_API) return false;
-  try {
-    await apiGet('/contacts');
-    return true;
-  } catch {
-    return false;
-  }
+  
+  // Fallback a localStorage
+  const contacts = await getContacts();
+  const filtered = contacts.filter(c => c.id !== id);
+  saveContacts(filtered);
 }
 
 
