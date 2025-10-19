@@ -28,6 +28,7 @@ function Favorites({ favorites, onUnfavorite }) {
             isFavorite={c.favorite}
             onRemove={() => onUnfavorite(c.id)}
             showRemoveText
+            centered
           />
         ))}
       </div>

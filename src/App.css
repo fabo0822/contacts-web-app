@@ -51,11 +51,14 @@
   padding: 8px 12px;
   border-radius: 5px;
   cursor: pointer;
+  transition: all 0.3s ease; /* Transición suave */
 }
 
 .new-button:hover {
   background-color: white; /* Oscurece al hover. */
   color: #c1d72f;
+  transform: scale(1.05); /* Efecto de crecimiento */
+  box-shadow: 0 4px 8px rgba(193, 215, 47, 0.3); /* Sombra verde en hover */
 }
 
 
@@ -140,11 +143,14 @@ hr {
   margin-top: 10px;
   font-size: 20px; /* Icono más grande */
   border: 2px solid #ff69b4; /* Borde rosado */
+  transition: all 0.3s ease; /* Transición suave */
 }
 
 .remove-button:hover {
   background-color: #d32f2f;
   border-color: #ff69b4; /* Mantener borde rosado en hover */
+  transform: scale(1.05); /* Efecto de crecimiento */
+  box-shadow: 0 4px 8px rgba(255, 105, 180, 0.3); /* Sombra rosada en hover */
 }
 
 
@@ -183,10 +189,13 @@ hr {
   border-radius: 4px;
   cursor: pointer;
   margin-top: 10px;
+  transition: all 0.3s ease; /* Transición suave */
 }
 
 .save-button:hover {
   background-color: #f0f0f0;
+  transform: scale(1.05); /* Efecto de crecimiento */
+  box-shadow: 0 4px 8px rgba(193, 215, 47, 0.3); /* Sombra verde en hover */
 }
 
 /* Corazón verde para agregar a favoritos */
@@ -199,10 +208,18 @@ hr {
   color: var(--color-green);
   background: transparent;
   font-size: 18px; /* Icono más grande */
+  transition: all 0.3s ease; /* Transición suave */
+}
+
+/* Corazón centrado para Overview y Favorites */
+.heart-button.centered {
+  margin-right: 0;
 }
 .heart-button:hover {
   background: var(--color-green-ghost);
   cursor: pointer;
+  transform: scale(1.05); /* Efecto de crecimiento */
+  box-shadow: 0 4px 8px rgba(193, 215, 47, 0.3); /* Sombra verde en hover */
 }
 
 
@@ -223,9 +240,16 @@ hr {
   color: #ef6c77;
   border: 1px solid #cf6679;
   margin-right: 50px;
+  transition: all 0.3s ease; /* Transición suave */
+}
+
+/* Botón REMOVE centrado para Overview y Favorites */
+.remove-button.remove-button--plain.centered {
+  margin-right: 0;
 }
 .remove-button.remove-button--plain:hover {
   background: #fdebee !important; /* leve rosa al hover */
   border-color: #cf6679;
-  
+  transform: scale(1.05); /* Efecto de crecimiento */
+  box-shadow: 0 4px 8px rgba(239, 108, 119, 0.3); /* Sombra rosa en hover */
 }

@@ -18,6 +18,7 @@ function Overview({ favorites, contactList, onToggleFavorite, onUnfavorite }) {
             isFavorite={c.favorite}
             onRemove={() => onUnfavorite(c.id)}
             showRemoveText
+            centered
           />
         ))}
       </div>
@@ -36,6 +37,7 @@ function Overview({ favorites, contactList, onToggleFavorite, onUnfavorite }) {
             imageUrl={c.imageUrl}
             isFavorite={c.favorite}
             onToggleFavorite={() => onToggleFavorite(c.id)}
+            centered
           />
         ))}
       </div>
