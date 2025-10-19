@@ -11,11 +11,39 @@ function Popup({ isOpen, onClose, onSave }) {
   const [imageData, setImageData] = useState('');
 
   const handleSave = () => {
-    if (!firstName.trim() || !lastName.trim() || !email.trim()) {
-      alert('Por favor completa todos los campos');
+    // Validaciones
+    if (!firstName.trim()) {
+      alert('El nombre es requerido');
       return;
     }
-    onSave({ firstName, lastName, email, favorite, imageUrl: imageData });
+    if (!lastName.trim()) {
+      alert('El apellido es requerido');
+      return;
+    }
+    if (!email.trim()) {
+      alert('El email es requerido');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      alert('Por favor ingresa un email válido');
+      return;
+    }
+    if (firstName.trim().length < 2) {
+      alert('El nombre debe tener al menos 2 caracteres');
+      return;
+    }
+    if (lastName.trim().length < 2) {
+      alert('El apellido debe tener al menos 2 caracteres');
+      return;
+    }
+    
+    onSave({ 
+      firstName: firstName.trim(), 
+      lastName: lastName.trim(), 
+      email: email.trim(), 
+      favorite, 
+      imageUrl: imageData 
+    });
   };
 
   const handleFileChange = (e) => {
