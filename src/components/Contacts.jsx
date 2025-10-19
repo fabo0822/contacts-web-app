@@ -24,6 +24,7 @@ function Contacts({ contacts, onToggleFavorite, onRemove }) {
             key={c.id}
             fullName={`${c.firstName} ${c.lastName}`}
             email={c.email}
+            imageUrl={c.imageUrl}
             onToggleFavorite={() => onToggleFavorite(c.id)}
             onRemove={() => onRemove(c.id)}
           />

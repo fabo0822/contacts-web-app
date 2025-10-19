@@ -24,6 +24,7 @@ function Favorites({ favorites, onUnfavorite }) {
             key={c.id}
             fullName={`${c.firstName} ${c.lastName}`}
             email={c.email}
+            imageUrl={c.imageUrl}
             onRemove={() => onUnfavorite(c.id)}
             removeText
           />

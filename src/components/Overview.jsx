@@ -14,6 +14,7 @@ function Overview({ favorites, contactList, onToggleFavorite, onUnfavorite }) {
             key={c.id}
             fullName={`${c.firstName} ${c.lastName}`}
             email={c.email}
+            imageUrl={c.imageUrl}
             onRemove={() => onUnfavorite(c.id)}
             removeText
           />
@@ -31,6 +32,7 @@ function Overview({ favorites, contactList, onToggleFavorite, onUnfavorite }) {
             key={c.id}
             fullName={`${c.firstName} ${c.lastName}`}
             email={c.email}
+            imageUrl={c.imageUrl}
             onToggleFavorite={() => onToggleFavorite(c.id)}
           />
         ))}
