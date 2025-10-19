@@ -38,11 +38,14 @@ function App() {
 
   const toggleFavorite = async (id) => {
     try {
+      const contactToUpdate = contacts.find(c => c.id === id);
+      const updatedContact = { ...contactToUpdate, favorite: !contactToUpdate.favorite };
+      
       const updated = contacts.map(c => 
-        c.id === id ? { ...c, favorite: !c.favorite } : c
+        c.id === id ? updatedContact : c
       );
       setContacts(updated);
-      await svcUpdate(id, { favorite: !contacts.find(c => c.id === id).favorite });
+      await svcUpdate(id, updatedContact);
     } catch (error) {
       alert('Error al actualizar el contacto. Intenta nuevamente.');
     }
