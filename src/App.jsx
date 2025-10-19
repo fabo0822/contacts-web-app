@@ -12,7 +12,7 @@ function App() {
   // Estado principal de la app: lista de contactos.
   // Mantengo una estructura simple para aprender: id, nombres, email y si es favorito.
   const [contacts, setContacts] = useState(() => {
-    const existing = listContacts();
+    const existing = listContacts(); // puede ser sync local; si es API, luego haremos fetch en useEffect
     if (existing && existing.length > 0) return existing;
     return [
       { id: 1, firstName: 'Ada', lastName: 'Lovelace', email: 'ada@example.com', favorite: true },
@@ -46,12 +46,12 @@ function App() {
   const [isPopupOpen, setPopupOpen] = useState(false);
 
   // Handlers sencillos
-  const addContact = (newContact) => {
-    const created = svcAdd(newContact);
+  const addContact = async (newContact) => {
+    const created = await svcAdd(newContact);
     setContacts((prev) => [...prev, created]);
   };
 
-  const toggleFavorite = (id) => {
+  const toggleFavorite = async (id) => {
     setContacts((prev) => {
       const updated = prev.map((c) => (c.id === id ? { ...c, favorite: !c.favorite } : c));
       const changed = updated.find((c) => c.id === id);
@@ -60,8 +60,8 @@ function App() {
     });
   };
 
-  const removeContact = (id) => {
-    svcDelete(id);
+  const removeContact = async (id) => {
+    await svcDelete(id);
     setContacts((prev) => prev.filter((c) => c.id !== id));
   };
 
@@ -70,6 +70,14 @@ function App() {
   };
 
   // Persistencia temporal cada vez que cambia contacts
+  useEffect(() => {
+    (async () => {
+      // Si hay API, listContacts podría ser async; refrescamos al montar.
+      const result = await listContacts();
+      if (Array.isArray(result) && result.length > 0) setContacts(result);
+    })();
+  }, []);
+
   useEffect(() => {
     saveContacts(contacts);
   }, [contacts]);
