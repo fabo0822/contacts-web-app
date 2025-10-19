@@ -1,6 +1,6 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import { getContacts, saveContacts, addContact as svcAdd, updateContact as svcUpdate, deleteContact as svcDelete } from './services/contactService';
+import { getContacts, addContact as svcAdd, updateContact as svcUpdate, deleteContact as svcDelete } from './services/contactService';
 import Navbar from './components/Navbar';
 import Overview from './components/Overview';
 import Contacts from './components/Contacts';
@@ -16,30 +16,46 @@ function App() {
   // Cargar contactos al iniciar
   useEffect(() => {
     const loadContacts = async () => {
-      const savedContacts = await getContacts();
-      setContacts(savedContacts);
+      try {
+        const savedContacts = await getContacts();
+        setContacts(savedContacts);
+      } catch (error) {
+        alert('Error al cargar los contactos. Verifica que el servidor esté funcionando.');
+      }
     };
     loadContacts();
   }, []);
 
   // Handlers sencillos
   const addContact = async (newContact) => {
-    const created = await svcAdd(newContact);
-    setContacts([...contacts, created]);
+    try {
+      const created = await svcAdd(newContact);
+      setContacts([...contacts, created]);
+    } catch (error) {
+      alert('Error al crear el contacto. Intenta nuevamente.');
+    }
   };
 
   const toggleFavorite = async (id) => {
-    const updated = contacts.map(c => 
-      c.id === id ? { ...c, favorite: !c.favorite } : c
-    );
-    setContacts(updated);
-    await svcUpdate(id, { favorite: !contacts.find(c => c.id === id).favorite });
+    try {
+      const updated = contacts.map(c => 
+        c.id === id ? { ...c, favorite: !c.favorite } : c
+      );
+      setContacts(updated);
+      await svcUpdate(id, { favorite: !contacts.find(c => c.id === id).favorite });
+    } catch (error) {
+      alert('Error al actualizar el contacto. Intenta nuevamente.');
+    }
   };
 
   const removeContact = async (id) => {
-    const filtered = contacts.filter(c => c.id !== id);
-    setContacts(filtered);
-    await svcDelete(id);
+    try {
+      const filtered = contacts.filter(c => c.id !== id);
+      setContacts(filtered);
+      await svcDelete(id);
+    } catch (error) {
+      alert('Error al eliminar el contacto. Intenta nuevamente.');
+    }
   };
 
   // Datos derivados para Overview.
