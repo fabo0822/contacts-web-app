@@ -1,5 +1,6 @@
 import './App.css';
 import { useEffect, useState } from 'react';
+import { listContacts, saveContacts, addContact as svcAdd, updateContact as svcUpdate, deleteContact as svcDelete } from './services/contactService';
 import Navbar from './components/Navbar';
 import Overview from './components/Overview';
 import Contacts from './components/Contacts';
@@ -11,11 +12,8 @@ function App() {
   // Estado principal de la app: lista de contactos.
   // Mantengo una estructura simple para aprender: id, nombres, email y si es favorito.
   const [contacts, setContacts] = useState(() => {
-    // Carga inicial desde localStorage (persistencia temporal)
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) return JSON.parse(raw);
-    } catch {}
+    const existing = listContacts();
+    if (existing && existing.length > 0) return existing;
     return [
       { id: 1, firstName: 'Ada', lastName: 'Lovelace', email: 'ada@example.com', favorite: true },
       { id: 2, firstName: 'Alan', lastName: 'Turing', email: 'alan@example.com', favorite: true },
@@ -49,17 +47,21 @@ function App() {
 
   // Handlers sencillos
   const addContact = (newContact) => {
-    setContacts((prev) => {
-      const nextId = prev.length === 0 ? 1 : Math.max(...prev.map((c) => c.id)) + 1;
-      return [...prev, { id: nextId, ...newContact }];
-    });
+    const created = svcAdd(newContact);
+    setContacts((prev) => [...prev, created]);
   };
 
   const toggleFavorite = (id) => {
-    setContacts((prev) => prev.map((c) => (c.id === id ? { ...c, favorite: !c.favorite } : c)));
+    setContacts((prev) => {
+      const updated = prev.map((c) => (c.id === id ? { ...c, favorite: !c.favorite } : c));
+      const changed = updated.find((c) => c.id === id);
+      if (changed) svcUpdate(id, { favorite: changed.favorite });
+      return updated;
+    });
   };
 
   const removeContact = (id) => {
+    svcDelete(id);
     setContacts((prev) => prev.filter((c) => c.id !== id));
   };
 
@@ -69,9 +71,7 @@ function App() {
 
   // Persistencia temporal cada vez que cambia contacts
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(contacts));
-    } catch {}
+    saveContacts(contacts);
   }, [contacts]);
 
   // Datos derivados para Overview.
