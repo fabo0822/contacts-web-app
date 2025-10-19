@@ -20,10 +20,11 @@
 
 
 .logo {
-  width: 40px; /* Ajusta el tamaño según necesites. */
-  height: auto; /* Mantiene la proporción. */
-  border-radius: 0; /* Quitamos el borde redondeado del div anterior. */
-  margin-right: auto; /* Empuja las tabs hacia la derecha. */
+  width: 140px;
+  height: 40px; /* Mantener alto fijo para barra */
+  object-fit: contain; /* Se ve completa dentro del rectángulo */
+  border-radius: 4px; /* leve borde cuadrado */
+  margin-right: auto;
 }
 
 .tabs {
@@ -145,7 +146,7 @@ h2 {
 
 /* Estilos para el popup en el flujo normal. */
 .popup {
-  background-color: #c3e6a7; /* Verde claro como en la imagen. */
+  background-color: #c1d72f; /* Verde claro como en la imagen. */
   padding: 20px;
   border-radius: 5px;
   width: 300px;
