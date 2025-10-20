@@ -37,13 +37,21 @@ function Popup({ isOpen, onClose, onSave }) {
       return;
     }
     
-    onSave({ 
+    const contactData = { 
       firstName: firstName.trim(), 
       lastName: lastName.trim(), 
       email: email.trim(), 
       favorite, 
-      imageUrl: null // Siempre null por ahora, el backend usará imagen por defecto
-    });
+      imageUrl: imageData || null // Usar la imagen seleccionada o null si no hay imagen
+    };
+    
+    console.log('Datos del contacto a guardar:', contactData); // Debug
+    console.log('Estado de favorito:', favorite, 'Tipo:', typeof favorite); // Debug
+    console.log('Imagen seleccionada:', imageData ? 'Sí' : 'No'); // Debug
+    console.log('Longitud de imagen:', imageData ? imageData.length : 0); // Debug
+    console.log('Es base64:', imageData ? imageData.startsWith('data:image/') : false); // Debug
+    
+    onSave(contactData);
     
     // Limpiar el formulario después de guardar
     setFirstName('');
