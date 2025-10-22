@@ -31,7 +31,11 @@ function Navbar({ activeTab, setActiveTab, isPopupOpen, setPopupOpen }) {
       <button
         className="new-button"
         onClick={() => {
-          setPopupOpen(!isPopupOpen); // Toggle: abre si está cerrado, cierra si está abierto
+          if (isPopupOpen) {
+            setPopupOpen(false); // Cerrar si está abierto
+          } else {
+            setPopupOpen(true); // Abrir si está cerrado
+          }
         }}
       >
         + NEW

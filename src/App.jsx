@@ -1,6 +1,6 @@
 import './App.css';
-import { useState } from 'react';
 import { useContacts } from './hooks/useContacts';
+import { useNavigation } from './hooks/useNavigation';
 import Navbar from './components/Navbar';
 import Overview from './components/Overview';
 import Contacts from './components/Contacts';
@@ -8,8 +8,14 @@ import Favorites from './components/Favorites';
 import Popup from './components/Popup';
 
 function App() {
-  const [activeTab, setActiveTab] = useState('Overview');
-  const [isPopupOpen, setPopupOpen] = useState(false);
+  // Usar el custom hook para navegación
+  const {
+    activeTab,
+    isPopupOpen,
+    navigateToTab,
+    openPopup,
+    closePopup
+  } = useNavigation();
   
   // Usar el custom hook para gestión de contactos
   const {
@@ -38,16 +44,21 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar activeTab={activeTab} setActiveTab={setActiveTab} isPopupOpen={isPopupOpen} setPopupOpen={setPopupOpen} />
+      <Navbar 
+        activeTab={activeTab} 
+        setActiveTab={navigateToTab} 
+        isPopupOpen={isPopupOpen} 
+        setPopupOpen={openPopup} 
+      />
 
       {isPopupOpen && (
         <Popup
           isOpen={isPopupOpen}
-          onClose={() => setPopupOpen(false)}
+          onClose={closePopup}
           onSave={async (data) => {
             try {
               await addContact(data);
-              setPopupOpen(false);
+              closePopup();
             } catch (error) {
               // El error ya se maneja en el hook
               console.error('Error al crear contacto:', error);
