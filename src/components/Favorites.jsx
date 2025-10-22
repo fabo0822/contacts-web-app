@@ -1,4 +1,3 @@
-// Componente para la sección Favorites con tarjetas desde datos reales.
 import { useMemo, useState } from 'react';
 import FavoriteCard from './FavoriteCard';
 import Pagination from './Pagination';

@@ -1,6 +1,3 @@
-// Tarjeta reutilizable para mostrar un contacto sencillo.
-// Props mínimas: fullName, email, onRemove (opcional), onToggleFavorite (opcional)
-
 import logoImage from '../assets/logo.png';
 
 function FavoriteCard({ fullName, email, onRemove, onToggleFavorite, imageUrl, isFavorite, showRemoveText, centered }) {

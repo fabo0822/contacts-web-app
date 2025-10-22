@@ -1,4 +1,3 @@
-// Formulario simple para crear un contacto.
 import { useState } from 'react';
 
 function Popup({ isOpen, onClose, onSave }) {
@@ -11,29 +10,28 @@ function Popup({ isOpen, onClose, onSave }) {
   const [imageData, setImageData] = useState('');
 
   const handleSave = () => {
-    // Validaciones
     if (!firstName.trim()) {
-      alert('El nombre es requerido');
+      alert('First name is required');
       return;
     }
     if (!lastName.trim()) {
-      alert('El apellido es requerido');
+      alert('Last name is required');
       return;
     }
     if (!email.trim()) {
-      alert('El email es requerido');
+      alert('Email is required');
       return;
     }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      alert('Por favor ingresa un email válido');
+      alert('Please enter a valid email');
       return;
     }
     if (firstName.trim().length < 2) {
-      alert('El nombre debe tener al menos 2 caracteres');
+      alert('First name must be at least 2 characters');
       return;
     }
     if (lastName.trim().length < 2) {
-      alert('El apellido debe tener al menos 2 caracteres');
+      alert('Last name must be at least 2 characters');
       return;
     }
     
@@ -42,18 +40,12 @@ function Popup({ isOpen, onClose, onSave }) {
       lastName: lastName.trim(), 
       email: email.trim(), 
       favorite, 
-      imageUrl: imageData || null // Usar la imagen seleccionada o null si no hay imagen
+      imageUrl: imageData || null
     };
-    
-    console.log('Datos del contacto a guardar:', contactData); // Debug
-    console.log('Estado de favorito:', favorite, 'Tipo:', typeof favorite); // Debug
-    console.log('Imagen seleccionada:', imageData ? 'Sí' : 'No'); // Debug
-    console.log('Longitud de imagen:', imageData ? imageData.length : 0); // Debug
-    console.log('Es base64:', imageData ? imageData.startsWith('data:image/') : false); // Debug
     
     onSave(contactData);
     
-    // Limpiar el formulario después de guardar
+    // Clear form after save
     setFirstName('');
     setLastName('');
     setEmail('');
@@ -68,7 +60,7 @@ function Popup({ isOpen, onClose, onSave }) {
     reader.onload = () => {
       setImageData(String(reader.result));
     };
-    reader.readAsDataURL(file); // Guardamos en base64 para uso temporal
+    reader.readAsDataURL(file);
   };
 
   return (

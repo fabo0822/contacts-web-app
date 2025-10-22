@@ -1,78 +1,76 @@
-/* Estilos generales para la app. */
 .App {
-  font-family: Arial, sans-serif; /* Fuente simple */
-  margin: 0; /* Quitar márgenes por defecto */
-  padding: 0; /* Quitar padding por defecto */
-  width: 100vw; /* Ocupa todo el ancho de la ventana */
-  height: 100vh; /* Ocupa todo el alto de la ventana */
-
- 
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
-/* Estilos para el navbar. */
 .navbar {
-  display: flex; /* Hace que los elementos se alineen horizontalmente. */
-  align-items: center; /* Centra verticalmente los elementos. */
-  justify-content: space-between; /* Espacia logo, tabs y botón. */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 2vh;
-  border-bottom: 1px solid #ddd; /* Línea inferior sutil. */
+  border-bottom: 1px solid #ddd;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
-
 
 .logo {
   width: 140px;
-  height: 40px; /* Mantener alto fijo para barra */
-  object-fit: contain; /* Se ve completa dentro del rectángulo */
-  border-radius: 4px; /* leve borde cuadrado */
+  height: 40px;
+  object-fit: contain;
+  border-radius: 4px;
   margin-right: auto;
 }
 
 .tabs {
-  list-style: none; /* Quita bullets de la lista. */
-  display: flex; /* Horizontal. */
+  list-style: none;
+  display: flex;
   margin: 0;
   padding: 0;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 .tabs li {
-  margin: 0 15px; /* Espacio entre pestañas. */
-  cursor: pointer; /* Mano al pasar el mouse. */
+  margin: 0 15px;
+  cursor: pointer;
   color: #333;
+  white-space: nowrap;
 }
 
 .tabs li:hover {
-  color: #ccc; /* Gris al hover, como interactivo. */
+  color: #ccc;
 }
 
 .new-button {
-  background-color: var(--color-green); /* Verde como en la imagen. */
+  background-color: var(--color-green);
   color: black;
   border: none;
   padding: 8px 12px;
   border-radius: 5px;
   cursor: pointer;
-  transition: all 0.3s ease; /* Transición suave */
+  transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .new-button:hover {
-  background-color: white; /* Oscurece al hover. */
+  background-color: white;
   color: #c1d72f;
-  transform: scale(1.1); /* Efecto de crecimiento más pronunciado */
-  box-shadow: 0 6px 12px rgba(193, 215, 47, 0.4); /* Sombra verde más intensa */
-  border: 2px solid var(--color-green); /* Borde verde en hover */
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(193, 215, 47, 0.4);
+  border: 2px solid var(--color-green);
 }
 
-
 .tabs li.active {
-  color: var(--color-green); /* Verde para la pestaña activa. */
+  color: var(--color-green);
   font-weight: bold;
 }
 
-/* Estilos básicos para las secciones. */
 h2 {
   margin-top: 20px;
   margin-left: 4vh;
- 
 }
 
 hr {
@@ -80,33 +78,35 @@ hr {
   margin: 10px 0;
 }
 
-/* Estilos para las secciones. */
 .section {
   margin-top: 20px;
-
+  padding: 0 1rem;
 }
+
 .favorite-card-name {
   font-weight: bold;
 }
 
 .favorites-header {
-  display: flex;          /* <--- clave para que estén en la misma fila */
-  align-items: center;    /* centra verticalmente */
-  gap: 50px;              /* espacio entre texto y línea */
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  flex-wrap: wrap;
 }
 
-
 .line {
-  flex: 1;                /* ocupa todo el espacio disponible */
+  flex: 1;
   height: 2px;
   background-color: var(--color-green);
   margin-right: 2vw;
+  min-width: 100px;
 }
 
 .favorites-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  justify-items: center;
 }
 
 .favorite-card {
@@ -114,16 +114,16 @@ hr {
   border: 1px solid #ddd;
   border-radius: 10px;
   padding: 20px;
-  margin: 10px;
   text-align: center;
-  width: 40vh;
+  width: 100%;
+  max-width: 350px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .card-logo {
   background-color: #ccc;
-  width: 25vh;
-  height: 25vh;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
   margin: 0 auto 10px;
   display: flex;
@@ -131,7 +131,7 @@ hr {
   justify-content: center;
 }
 
-/* Borde verde para contactos favoritos */
+/* Green border for favorite contacts */
 .card-logo.favorite {
   border: 3px solid var(--color-green);
 }
@@ -142,28 +142,27 @@ hr {
   border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
-  font-size: 20px; /* Icono más grande */
-  border: 2px solid var(--color-red-border); /* Borde rosado */
-  transition: all 0.3s ease; /* Transición suave */
+  font-size: 20px;
+  border: 2px solid var(--color-red-border);
+  transition: all 0.3s ease;
 }
 
 .remove-button:hover {
   background-color: transparent;
-  border-color: #ff69b4; /* Mantener borde rosado en hover */
-  transform: scale(1.05); /* Efecto de crecimiento */
-  box-shadow: 0 4px 8px rgba(255, 105, 180, 0.3); /* Sombra rosada en hover */
+  border-color: #ff69b4;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(255, 105, 180, 0.3);
 }
 
-
-/* Estilos para el popup en el flujo normal. */
 .popup {
-  background-color: #c1d72f; /* Verde claro como en la imagen. */
+  background-color: #c1d72f;
   padding: 20px;
   border-radius: 5px;
-  width: 300px;
+  width: 90%;
+  max-width: 400px;
   text-align: center;
-  margin: 20px auto; /* Centra y añade margen superior/inferior para separar del navbar. */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2); /* Sombra para que parezca destacado. */
+  margin: 20px auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .popup-input {
@@ -175,7 +174,7 @@ hr {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  background-color: #f0f8e8; /* Verde claro como en la imagen */
+  background-color: #f0f8e8;
 }
 
 .error-text {
@@ -191,16 +190,15 @@ hr {
   border-radius: 4px;
   cursor: pointer;
   margin-top: 10px;
-  transition: all 0.3s ease; /* Transición suave */
+  transition: all 0.3s ease;
 }
 
 .save-button:hover {
   background-color: #f0f0f0;
-  transform: scale(1.05); /* Efecto de crecimiento */
-  box-shadow: 0 4px 8px rgba(193, 215, 47, 0.3); /* Sombra verde en hover */
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(193, 215, 47, 0.3);
 }
 
-/* Estilos para el checkbox en el popup */
 .popup-checkbox {
   display: flex;
   justify-content: space-between;
@@ -215,14 +213,13 @@ hr {
   margin-left: 10px;
 }
 
-/* Centrar solo el botón SAVE */
 .popup-save-container {
   display: flex;
   justify-content: center;
   margin-top: 15px;
 }
 
-/* Corazón verde para agregar a favoritos */
+/* Green heart button to add to favorites */
 .heart-button {
   padding: 5px 8px;
   margin-top: 10px;
@@ -231,49 +228,125 @@ hr {
   border: 2px solid var(--color-green);
   color: var(--color-green);
   background: transparent;
-  font-size: 18px; /* Icono más grande */
-  transition: all 0.3s ease; /* Transición suave */
+  font-size: 18px;
+  transition: all 0.3s ease;
 }
 
-/* Corazón centrado para Overview y Favorites */
 .heart-button.centered {
   margin-right: 0;
 }
+
 .heart-button:hover {
   background: var(--color-green-ghost);
   cursor: pointer;
-  transform: scale(1.05); /* Efecto de crecimiento */
-  box-shadow: 0 4px 8px rgba(193, 215, 47, 0.3); /* Sombra verde en hover */
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(193, 215, 47, 0.3);
 }
 
-
-
-
-
-
-
-/* Paginación */
-/* .save-button[disabled] {
-  opacity: 0.5;
-  cursor: not-allowed;
-} */
-
-/* Variante sin fondo para botón REMOVE en favoritos */
 .remove-button.remove-button--plain {
   background: transparent !important;
   color: var(--color-red);
   border: 1px solid var(--color-red-border);
   margin-right: 50px;
-  transition: all 0.3s ease; /* Transición suave */
+  transition: all 0.3s ease;
 }
 
-/* Botón REMOVE centrado para Overview y Favorites */
 .remove-button.remove-button--plain.centered {
   margin-right: 0;
 }
+
 .remove-button.remove-button--plain:hover {
-  background: var(--color-red-ghost) !important; /* leve rosa al hover */
+  background: var(--color-red-ghost) !important;
   border-color: var(--color-red-border);
-  transform: scale(1.05); /* Efecto de crecimiento */
-  
+  transform: scale(1.05);
+}
+
+/* Responsive breakpoints */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem;
+    justify-content: center;
+  }
+
+  .logo {
+    width: 100px;
+    height: 30px;
+    margin-right: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .tabs {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .tabs li {
+    margin: 0 10px;
+    font-size: 14px;
+  }
+
+  .new-button {
+    width: 100%;
+    margin-top: 0.5rem;
+  }
+
+  h2 {
+    margin-left: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .favorites-list {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .favorite-card {
+    max-width: 100%;
+  }
+
+  .card-logo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .popup {
+    width: 95%;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .tabs {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .tabs li {
+    margin: 5px 0;
+    padding: 8px;
+  }
+
+  .favorites-list {
+    grid-template-columns: 1fr;
+  }
+
+  .card-logo {
+    width: 100px;
+    height: 100px;
+  }
+
+  .heart-button,
+  .remove-button {
+    margin-right: 0;
+    font-size: 16px;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+  }
 }

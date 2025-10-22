@@ -1,17 +1,14 @@
-// Servicio para contactos con API backend
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5239';
 
-// Función para construir la URL correcta
+// Build the correct API URL based on environment
 function getApiUrl(path) {
   if (import.meta.env.DEV) {
-    // En desarrollo, usar proxy de Vite
     return `/api${path}`;
   }
-  // En producción, usar URL completa
   return `${API_URL}${path}`;
 }
 
-// Normaliza un contacto desde el backend a la forma usada en el frontend
+// Normalize contact data from backend to frontend format
 function normalizeContact(contact) {
   if (!contact) return contact;
   const favorite = typeof contact.favorite !== 'undefined' ? contact.favorite : Boolean(contact.isFavorite);
@@ -19,7 +16,6 @@ function normalizeContact(contact) {
   return { ...contact, favorite, imageUrl };
 }
 
-// Obtener todos los contactos
 export async function getContacts() {
   try {
     const response = await fetch(getApiUrl('/contacts'));
@@ -30,19 +26,17 @@ export async function getContacts() {
       }
       return data;
     }
-    throw new Error('Error al obtener contactos');
+    throw new Error('Error fetching contacts');
   } catch (error) {
-    console.error('Error al cargar contactos:', error);
+    console.error('Error loading contacts:', error);
     throw error;
   }
 }
 
-// Subir imagen al servidor
+// Upload image to server
 export async function uploadImage(imageData) {
   try {
-    console.log('Subiendo imagen al servidor...'); // Debug
-    
-    // Extraer mime y convertir base64 a Blob
+    // Extract mime type and convert base64 to Blob
     const [prefix, b64] = imageData.split(',');
     const mimeMatch = prefix.match(/^data:(.*?);base64$/);
     const mimeType = mimeMatch ? mimeMatch[1] : 'image/jpeg';
@@ -56,7 +50,6 @@ export async function uploadImage(imageData) {
     const blob = new Blob([byteArray], { type: mimeType });
     
     const formData = new FormData();
-    // Muchos backends esperan el campo 'file'
     const extension = mimeType.split('/')[1] || 'jpg';
     formData.append('file', blob, `contact-image.${extension}`);
     
@@ -67,60 +60,43 @@ export async function uploadImage(imageData) {
     
     if (response.ok) {
       const result = await response.json();
-      console.log('Imagen subida exitosamente:', result); // Debug
-      // Aceptar distintas claves que pueda devolver el backend
       const url = result.imageUrl || result.url || result.path || result.location;
       if (!url) {
-        throw new Error('La respuesta no contiene URL de imagen');
+        throw new Error('Response does not contain image URL');
       }
-      return url; // Retornar la URL de la imagen
+      return url;
     }
     
     const errorText = await response.text();
-    console.error('Error al subir imagen:', errorText); // Debug
-    throw new Error(`Error al subir imagen (${response.status}): ${errorText}`);
+    console.error('Error uploading image:', errorText);
+    throw new Error(`Error uploading image (${response.status}): ${errorText}`);
   } catch (error) {
-    console.error('Error al subir imagen:', error);
+    console.error('Error uploading image:', error);
     throw error;
   }
 }
 
-// Agregar nuevo contacto
 export async function addContact(newContact) {
   try {
-    console.log('URL de la API:', getApiUrl('/contacts')); // Debug
-    console.log('Datos a enviar al servidor:', newContact); // Debug
-    console.log('Tipo de favorite:', typeof newContact.favorite, 'Valor:', newContact.favorite); // Debug
-    console.log('Tiene imagen:', !!newContact.imageUrl); // Debug
-    
     let contactData = { ...newContact };
     
-    // Si hay imagen base64, subirla primero
+    // If there's a base64 image, upload it first
     if (newContact.imageUrl && newContact.imageUrl.startsWith('data:image/')) {
-      console.log('Subiendo imagen primero...'); // Debug
-      console.log('Longitud de imagen base64:', newContact.imageUrl.length); // Debug
       try {
         const imageUrl = await uploadImage(newContact.imageUrl);
         contactData.imageUrl = imageUrl;
-        console.log('Imagen subida, URL obtenida:', imageUrl); // Debug
       } catch (error) {
-        console.warn('Error al subir imagen, continuando sin imagen:', error); // Debug
+        console.warn('Error uploading image, continuing without image:', error);
         contactData.imageUrl = null;
       }
     } else if (!newContact.imageUrl) {
-      // Si no hay imagen, omitir el campo
-      console.log('No hay imagen, omitiendo campo imageUrl'); // Debug
       delete contactData.imageUrl;
-    } else {
-      console.log('Imagen URL válida detectada:', newContact.imageUrl); // Debug
     }
     
-    // Algunos backends esperan 'isFavorite' en vez de 'favorite'
+    // Some backends expect 'isFavorite' instead of 'favorite'
     if (typeof contactData.isFavorite === 'undefined' && typeof contactData.favorite !== 'undefined') {
       contactData.isFavorite = Boolean(contactData.favorite);
     }
-
-    console.log('Enviando contacto con datos finales:', contactData); // Debug
     
     const response = await fetch(getApiUrl('/contacts'), {
       method: 'POST',
@@ -128,26 +104,21 @@ export async function addContact(newContact) {
       body: JSON.stringify(contactData)
     });
     
-    console.log('Respuesta del servidor:', response.status, response.statusText); // Debug
-    
     if (response.ok) {
       const result = await response.json();
       const normalized = normalizeContact(result);
-      console.log('Contacto creado exitosamente:', normalized); // Debug
       return normalized;
     }
     
-    // Si no es exitosa, obtener el mensaje de error del servidor
     const errorText = await response.text();
-    console.error('Error del servidor:', errorText); // Debug
-    throw new Error(`Error del servidor (${response.status}): ${errorText}`);
+    console.error('Server error:', errorText);
+    throw new Error(`Server error (${response.status}): ${errorText}`);
   } catch (error) {
-    console.error('Error al crear contacto:', error);
+    console.error('Error creating contact:', error);
     throw error;
   }
 }
 
-// Actualizar contacto
 export async function updateContact(id, changes) {
   try {
     const response = await fetch(getApiUrl(`/contacts/${id}`), {
@@ -159,14 +130,13 @@ export async function updateContact(id, changes) {
       const updated = await response.json();
       return normalizeContact(updated);
     }
-    throw new Error('Error al actualizar contacto');
+    throw new Error('Error updating contact');
   } catch (error) {
-    console.error('Error al actualizar contacto:', error);
+    console.error('Error updating contact:', error);
     throw error;
   }
 }
 
-// Eliminar contacto
 export async function deleteContact(id) {
   try {
     const response = await fetch(getApiUrl(`/contacts/${id}`), {
@@ -175,9 +145,9 @@ export async function deleteContact(id) {
     if (response.ok) {
       return;
     }
-    throw new Error('Error al eliminar contacto');
+    throw new Error('Error deleting contact');
   } catch (error) {
-    console.error('Error al eliminar contacto:', error);
+    console.error('Error deleting contact:', error);
     throw error;
   }
 }

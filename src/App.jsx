@@ -8,7 +8,6 @@ import Favorites from './components/Favorites';
 import Popup from './components/Popup';
 
 function App() {
-  // Usar el custom hook para navegación
   const {
     activeTab,
     isPopupOpen,
@@ -17,7 +16,6 @@ function App() {
     closePopup
   } = useNavigation();
   
-  // Usar el custom hook para gestión de contactos
   const {
     contacts,
     loading,
@@ -29,7 +27,6 @@ function App() {
     contactListForOverview
   } = useContacts();
 
-  // Manejar errores
   if (error) {
     return (
       <div className="App">
@@ -60,8 +57,7 @@ function App() {
               await addContact(data);
               closePopup();
             } catch (error) {
-              // El error ya se maneja en el hook
-              console.error('Error al crear contacto:', error);
+              console.error('Error creating contact:', error);
             }
           }}
         />
