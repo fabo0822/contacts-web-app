@@ -121,16 +121,29 @@ export async function addContact(newContact) {
 
 export async function updateContact(id, changes) {
   try {
+    // Ensure both favorite and isFavorite are set for backend compatibility
+    const updateData = { ...changes };
+    if (typeof updateData.favorite !== 'undefined') {
+      updateData.isFavorite = updateData.favorite;
+    }
+    
+    console.log('Updating contact with data:', updateData); // Debug log to verify data
+    
     const response = await fetch(getApiUrl(`/contacts/${id}`), {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(changes)
+      body: JSON.stringify(updateData)
     });
+    
     if (response.ok) {
       const updated = await response.json();
+      console.log('Server response:', updated); // Debug log to verify server response
       return normalizeContact(updated);
     }
-    throw new Error('Error updating contact');
+    
+    const errorText = await response.text();
+    console.error('Update failed:', response.status, errorText);
+    throw new Error(`Error updating contact (${response.status}): ${errorText}`);
   } catch (error) {
     console.error('Error updating contact:', error);
     throw error;

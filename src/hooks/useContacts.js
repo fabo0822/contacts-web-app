@@ -50,14 +50,31 @@ export function useContacts() {
         throw new Error('Contact not found');
       }
       
-      const updatedContact = { ...contactToUpdate, favorite: !contactToUpdate.favorite };
+      const newFavoriteStatus = !contactToUpdate.favorite;
+      const updatedContact = { ...contactToUpdate, favorite: newFavoriteStatus };
       
       // Optimistic update
       setContacts(prevContacts => 
         prevContacts.map(c => c.id === id ? updatedContact : c)
       );
       
-      await svcUpdate(id, updatedContact);
+      // Send only the necessary fields to avoid server issues
+      const updateData = {
+        firstName: contactToUpdate.firstName,
+        lastName: contactToUpdate.lastName,
+        email: contactToUpdate.email,
+        favorite: newFavoriteStatus,
+        imageUrl: contactToUpdate.imageUrl
+      };
+      
+      const result = await svcUpdate(id, updateData);
+      
+      // Update with server response to ensure consistency
+      if (result) {
+        setContacts(prevContacts => 
+          prevContacts.map(c => c.id === id ? result : c)
+        );
+      }
     } catch (error) {
       const errorMessage = 'Error updating contact. Try again.';
       setError(errorMessage);
